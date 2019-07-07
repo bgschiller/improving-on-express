@@ -1,0 +1,9 @@
+<div class="highlight"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
+  <span class="s1">&#39;/favorite&#39;</span><span class="p">,</span>
+  <span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(),</span>
+  <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// req.user should be</span>
+    <span class="c1">// available because of</span>
+    <span class="c1">// passport.authenticate()</span>
+<span class="p">});</span>
+</pre></div>

@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">passport</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;passport&#39;</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
+  <span class="s1">&#39;/talks&#39;</span><span class="p">,</span>
+  <span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">&#39;jwt&#39;</span><span class="p">),</span>
+  <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">talk</span> <span class="o">=</span> <span class="nx">createTalk</span><span class="p">(</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">talk</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>

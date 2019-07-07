@@ -1,0 +1,12 @@
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">mustOwnTicket</span><span class="p">(</span>
+  <span class="nx">req</span>: <span class="kt">Request</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">,</span> <span class="nx">next</span>: <span class="kt">NextFunction</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">ticketId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">ticketId</span><span class="p">;</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">ticket</span> <span class="o">=</span> <span class="nx">findTicketById</span><span class="p">(</span><span class="nx">ticketId</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">ticket</span> <span class="o">||</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">req</span><span class="p">.</span><span class="nx">ticket</span><span class="p">.</span><span class="nx">purchaser_id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">403</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
