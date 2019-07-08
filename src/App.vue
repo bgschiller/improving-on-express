@@ -15,6 +15,16 @@
         <div v-if="step >= 2" v-html="uncaughtErrorWithWarning" />
       </slide>
       <slide>
+        <h2>Too many ways to "return"</h2>
+        <ul>
+          <li>call <code>next()</code> to pass down the chain</li>
+          <li>call <code>next(err)</code> to pass along to next error handler</li>
+          <li>send a response directly</li>
+          <li>return without sending a response</li>
+          <li>throw an error</li>
+        </ul>
+      </slide>
+      <slide>
         <Wishlist :step="1" />
       </slide>
       <slide :steps="2">
@@ -39,10 +49,7 @@
         <div v-if="step === 2" v-html="forgottenAuthFixed" />
         <div v-if="step === 3" v-html="forgottenAuthQuestionFace" />
       </slide>
-      <slide>
-        <Wishlist :step="4" />
-      </slide>
-      <slide :steps="3">
+      <slide :steps="4">
         <h2>How is <code>req.user</code> typed?</h2>
         <div v-if="step >= 2" v-html="passportDeclaration" />
         <p v-if="step >= 3">
@@ -50,6 +57,12 @@
           the <code>.user</code> prop  is added to
           every express <code>Request</code>
         </p>
+        <p v-if="step >= 4">
+          EVEN THE ONES NOT USING PASSPORT MIDDLEWARE!
+        </p>
+      </slide>
+      <slide>
+        <Wishlist :step="4" />
       </slide>
       <slide :steps="4">
         <h2 v-if="step <= 3" class="floating-header">
@@ -64,6 +77,7 @@
           style="
             background-image: url(/improving-on-express/images/thats-impossible.jpg);
             margin-top: -100vh;
+            position: fixed;
           "
         />
       </slide>
