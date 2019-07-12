@@ -1,0 +1,12 @@
+<div class="highlight"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;healthcheck&#39;</span><span class="p">,</span>
+  <span class="nx">withConnection</span><span class="p">(</span><span class="nx">conn</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">status_code</span>: <span class="kt">200</span><span class="p">,</span>
+      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;content-type&#39;</span><span class="o">:</span>
+        <span class="s1">&#39;text/plain&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;all is well&#39;</span><span class="p">,</span>
+    <span class="p">};</span>
+<span class="p">}));</span>
+</pre></div>

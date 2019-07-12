@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '/improving-on-express/',
+  publicPath: '/improving-on-express/',
   chainWebpack: config => {
     config.module
       .rule('html')

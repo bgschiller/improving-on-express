@@ -50,16 +50,16 @@
         <div v-if="step === 3" v-html="forgottenAuthQuestionFace" />
       </slide>
       <slide :steps="4">
-        <h2>How is <code>req.user</code> typed?</h2>
+        <h3>How is <code>req.user</code> typed?</h3>
         <div v-if="step >= 2" v-html="passportDeclaration" />
         <p v-if="step >= 3">
           Through the magic of"Declaration merging"
           the <code>.user</code> prop  is added to
           every express <code>Request</code>
         </p>
-        <p v-if="step >= 4">
+        <p v-if="step >= 4"><strong>
           EVEN THE ONES NOT USING PASSPORT MIDDLEWARE!
-        </p>
+        </strong></p>
       </slide>
       <slide>
         <Wishlist :step="4" />
@@ -89,6 +89,36 @@
         <div v-if="step === 3" v-html="mustOwnTicketExpress" />
         <div v-if="step >= 2" v-html="ticketDeclarationMerge" />
       </slide>
+      <slide>
+        <Wishlist :step="5" />
+      </slide>
+      <slide :steps="4">
+        <h2>Plan of Attack</h2>
+        <ul class="unbulleted left-align center-list">
+          <li v-if="step >= 2">Replace method calls on `res` with return values</li>
+          <li v-if="step >= 3">Change callbacks to Promises</li>
+          <li v-if="step >= 4">Catch errors and translate them into responses</li>
+        </ul>
+      </slide>
+      <slide>
+        <h2 class="title-only">Let's get to work</h2>
+      </slide>
+      <slide :steps="7">
+        <h3 :class="{ 'floating-header': step <= 3 }">Replace method calls with return values</h3>
+        <div class="by-halves" v-if="step <= 3">
+          <div v-visible="step >= 2" v-html="methodCallsToRes" />
+          <div v-visible="step >= 3" v-html="returnValues" />
+        </div>
+        <div v-if="step === 4" v-html="returnValues" />
+        <div v-if="step === 5" v-html="returnValuesTypeChecking" />
+        <div v-if="step === 6" v-html="returnValuesTypeCheckingUnderlined" />
+        <p v-if="step === 6">
+          Property '<code>body</code>' is missing in type
+          '<code>{ status_code: number; headers: { 'content-type': string; }; }</code>'
+          but required in type '<code>Resp</code>'
+        </p>
+        <div v-if="step === 7" v-html="returnValuesHelperFunction" />
+      </slide>
     </div>
   </div>
 </template>
@@ -110,6 +140,11 @@ import typeAlteringMiddlewareB from './code-snippets/12-type-altering-middleware
 import mustOwnTicketExpressUnderlined from './code-snippets/13-must-own-ticket-express-underlined.html';
 import mustOwnTicketExpress from './code-snippets/14-must-own-ticket-express.html';
 import ticketDeclarationMerge from './code-snippets/15-ticket-declaration-merge.html';
+import methodCallsToRes from './code-snippets/16-method-calls-to-res.html';
+import returnValues from './code-snippets/17-return-values.html';
+import returnValuesTypeChecking from './code-snippets/18-return-values-typechecking.html';
+import returnValuesTypeCheckingUnderlined from './code-snippets/19-return-values-typechecking-underlined.html';
+import returnValuesHelperFunction from './code-snippets/20-return-values-helper.html';
 
 import Wishlist from './components/Wishlist';
 
@@ -137,6 +172,11 @@ export default {
       mustOwnTicketExpressUnderlined,
       mustOwnTicketExpress,
       ticketDeclarationMerge,
+      methodCallsToRes,
+      returnValues,
+      returnValuesTypeChecking,
+      returnValuesTypeCheckingUnderlined,
+      returnValuesHelperFunction,
     };
   },
   methods: {
