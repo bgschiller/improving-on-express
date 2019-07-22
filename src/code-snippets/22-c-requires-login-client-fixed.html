@@ -1,0 +1,5 @@
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">deleteEverything</span><span class="p">(</span><span class="nx">conn</span>: <span class="kt">Connection</span> <span class="o">&amp;</span> <span class="nx">WithUser</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Resp</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">conn</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">isAdmin</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">Forbidden</span><span class="p">();</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>

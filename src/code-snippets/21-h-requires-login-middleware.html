@@ -1,0 +1,10 @@
+<div class="highlight"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">requiresLogin</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">verifyAuth</span><span class="p">(</span><span class="nx">conn</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">NotAuthorized</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="p">...</span><span class="nx">conn</span><span class="p">,</span> <span class="nx">user</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>

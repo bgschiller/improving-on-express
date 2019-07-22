@@ -95,7 +95,7 @@
       <slide :steps="4">
         <h2>Plan of Attack</h2>
         <ul class="unbulleted left-align center-list">
-          <li v-if="step >= 2">Replace method calls on `res` with return values</li>
+          <li v-if="step >= 2">Replace method calls on <code>res</code> with return values</li>
           <li v-if="step >= 3">Change callbacks to Promises</li>
           <li v-if="step >= 4">Catch errors and translate them into responses</li>
         </ul>
@@ -118,6 +118,41 @@
           but required in type '<code>Resp</code>'
         </p>
         <div v-if="step === 7" v-html="returnValuesHelperFunction" />
+      </slide>
+      <slide :steps="11">
+        <h3>Change callbacks to Promises</h3>
+        <div v-if="step === 2" v-html="requiresLoginMiddlewareA" />
+        <div v-if="step === 3" v-html="requiresLoginMiddlewareB" />
+        <div v-if="step === 4" v-html="requiresLoginMiddlewareC" />
+        <div v-if="step === 5" v-html="requiresLoginMiddlewareD" />
+        <div v-if="step === 6" v-html="requiresLoginMiddlewareE" />
+        <div v-if="step === 7" v-html="requiresLoginMiddlewareF" />
+        <div v-if="step === 8" v-html="requiresLoginMiddlewareG" />
+        <div v-if="step === 9" v-html="requiresLoginMiddlewareH" />
+        <div v-if="step === 10" v-html="requiresLoginMiddlewareI" />
+        <div v-if="step === 11" v-html="requiresLoginMiddlewareJ" />
+      </slide>
+      <slide :steps="8">
+        <h3 v-if="step===1">Whoa, things got complicated!</h3>
+        <div v-if="step === 1" v-html="requiresLoginMiddlewareJ" />
+        <h3 v-if="step === 2">Remember, types are optional</h3>
+        <div v-if="step === 2" v-html="requiresLoginMiddlewareH" />
+        <h3 v-if="step >= 3">But look what they bought us</h3>
+        <div v-if="step === 3" v-html="requiresLoginClient" />
+        <div v-if="step === 4" v-html="requiresLoginClientUnderlined" />
+        <p v-if="step === 4">
+          Property '<code>user</code>' does not exist on type '<code>Connection</code>'
+        </p>
+        <div v-if="step >= 5" v-html="requiresLoginClientFixed" />
+        <div v-if="step === 6" v-html="requiresLoginClientRegister" />
+        <div v-if="step === 7" v-html="requiresLoginClientRegisterUnderlined" />
+        <p v-if="step === 7">
+          Type '<code>Connection</code>' is not assignable to type '<code>Connection & WithUser</code>'.
+        </p>
+        <p v-if="step === 7">
+          Property '<code>user</code>' is missing in type '<code>Connection</code>' but required in type '<code>WithUser</code>'.
+        </p>
+        <div v-if="step === 8" v-html="requiresLoginClientRegisterFixed" />
       </slide>
     </div>
   </div>
@@ -145,6 +180,22 @@ import returnValues from './code-snippets/17-return-values.html';
 import returnValuesTypeChecking from './code-snippets/18-return-values-typechecking.html';
 import returnValuesTypeCheckingUnderlined from './code-snippets/19-return-values-typechecking-underlined.html';
 import returnValuesHelperFunction from './code-snippets/20-return-values-helper.html';
+import requiresLoginMiddlewareA from './code-snippets/21-a-requires-login-middleware.html';
+import requiresLoginMiddlewareB from './code-snippets/21-b-requires-login-middleware.html';
+import requiresLoginMiddlewareC from './code-snippets/21-c-requires-login-middleware.html';
+import requiresLoginMiddlewareD from './code-snippets/21-d-requires-login-middleware.html';
+import requiresLoginMiddlewareE from './code-snippets/21-e-requires-login-middleware.html';
+import requiresLoginMiddlewareF from './code-snippets/21-f-requires-login-middleware.html';
+import requiresLoginMiddlewareG from './code-snippets/21-g-requires-login-middleware.html';
+import requiresLoginMiddlewareH from './code-snippets/21-h-requires-login-middleware.html';
+import requiresLoginMiddlewareI from './code-snippets/21-i-requires-login-middleware.html';
+import requiresLoginMiddlewareJ from './code-snippets/21-j-requires-login-middleware.html';
+import requiresLoginClient from './code-snippets/22-a-requires-login-client.html';
+import requiresLoginClientUnderlined from './code-snippets/22-b-requires-login-client-underlined.html';
+import requiresLoginClientFixed from './code-snippets/22-c-requires-login-client-fixed.html';
+import requiresLoginClientRegister from './code-snippets/22-d-requires-login-client-register.html';
+import requiresLoginClientRegisterUnderlined from './code-snippets/22-e-requires-login-client-register-underlined.html';
+import requiresLoginClientRegisterFixed from './code-snippets/22-f-requires-login-client-register-fixed.html';
 
 import Wishlist from './components/Wishlist';
 
@@ -177,6 +228,22 @@ export default {
       returnValuesTypeChecking,
       returnValuesTypeCheckingUnderlined,
       returnValuesHelperFunction,
+      requiresLoginMiddlewareA,
+      requiresLoginMiddlewareB,
+      requiresLoginMiddlewareC,
+      requiresLoginMiddlewareD,
+      requiresLoginMiddlewareE,
+      requiresLoginMiddlewareF,
+      requiresLoginMiddlewareG,
+      requiresLoginMiddlewareH,
+      requiresLoginMiddlewareI,
+      requiresLoginMiddlewareJ,
+      requiresLoginClient,
+      requiresLoginClientUnderlined,
+      requiresLoginClientFixed,
+      requiresLoginClientRegister,
+      requiresLoginClientRegisterUnderlined,
+      requiresLoginClientRegisterFixed,
     };
   },
   methods: {
@@ -278,6 +345,9 @@ ul.white-card:not(.unbulleted) {
   width: fit-content;
   margin: 0 auto;
   padding: 20px;
+}
+.highlight {
+  margin-bottom: 20px;
 }
 
 body {

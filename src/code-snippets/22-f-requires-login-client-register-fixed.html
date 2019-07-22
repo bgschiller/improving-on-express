@@ -1,0 +1,5 @@
+<div class="highlight"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/everything&#39;</span><span class="p">,</span> <span class="nx">withConnection</span><span class="p">(</span>
+  <span class="nx">conn</span> <span class="o">=&gt;</span> <span class="nx">requiresLogin</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">deleteEverything</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
