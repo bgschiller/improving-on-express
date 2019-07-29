@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Connection</span> <span class="p">{</span>
+  <span class="nx">body</span>: <span class="kt">unknown</span><span class="p">;</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">path</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">k</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span>
+  <span class="p">};</span>
+  <span class="nx">query</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">k</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span>
+  <span class="p">};</span>
+  <span class="nx">_req</span>: <span class="kt">Request</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>

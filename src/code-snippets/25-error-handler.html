@@ -1,0 +1,16 @@
+<div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ControllerError</span> <span class="kr">extends</span> <span class="nb">Error</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">err</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">Resp</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="k">instanceof</span> <span class="nx">ControllerError</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">.</span><span class="nx">toResponse</span><span class="p">();</span>
+  <span class="c1">// all other errors</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;an error occurred&#39;</span><span class="p">,</span>
+    <span class="nx">status_code</span>: <span class="kt">500</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">NotAuthorized</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Forbidden</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ClientError</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</pre></div>

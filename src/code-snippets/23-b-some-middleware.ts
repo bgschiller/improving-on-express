@@ -1,0 +1,3 @@
+function someMiddleware<C>(conn: C): Promise<C> {
+  // ...
+}

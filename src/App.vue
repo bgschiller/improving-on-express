@@ -119,6 +119,20 @@
         </p>
         <div v-if="step === 7" v-html="returnValuesHelperFunction" />
       </slide>
+      <slide :steps="2">
+        <h3 class="floating-header">
+          Handlers eat
+          <code>Connection</code>s
+          <span v-visible="step == 2">
+            and return
+            <code>Resp</code>s
+          </span>
+        </h3>
+        <div class="by-halves">
+          <div v-html="connType" />
+          <div v-visible="step==2" v-html="respType" />
+        </div>
+      </slide>
       <slide :steps="11">
         <h3>Change callbacks to Promises</h3>
         <div v-if="step === 2" v-html="requiresLoginMiddlewareA" />
@@ -147,12 +161,44 @@
         <div v-if="step === 6" v-html="requiresLoginClientRegister" />
         <div v-if="step === 7" v-html="requiresLoginClientRegisterUnderlined" />
         <p v-if="step === 7">
-          Type '<code>Connection</code>' is not assignable to type '<code>Connection & WithUser</code>'.
+          Type '<code>Connection</code>' is not assignable to type '<code>Connection &amp; WithUser</code>'.
         </p>
         <p v-if="step === 7">
           Property '<code>user</code>' is missing in type '<code>Connection</code>' but required in type '<code>WithUser</code>'.
         </p>
         <div v-if="step === 8" v-html="requiresLoginClientRegisterFixed" />
+      </slide>
+      <slide :steps="5">
+        <h3>Errors → Responses</h3>
+<div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ControllerError</span> <span class="kr">extends</span> <span class="nb">Error</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">err</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">Resp</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="k">instanceof</span> <span class="nx">ControllerError</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">.</span><span class="nx">toResponse</span><span class="p">();</span>
+  <span class="c1">// all other errors</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;an error occurred&#39;</span><span class="p">,</span>
+    <span class="nx">status_code</span>: <span class="kt">500</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span v-visible="step >= 3"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">NotAuthorized</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span></span>
+<span v-visible="step >= 4"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">Forbidden</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span></span>
+<span v-visible="step >= 5"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ClientError</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span></span></pre></div>
+      </slide>
+      <slide :steps="4">
+        <h2>What's this thing do?</h2>
+        <div v-if="step === 1" v-html="someMiddleware" />
+        <div v-if="step === 2" v-html="someMiddlewareTyped" />
+        <div v-if="step === 3" v-html="someMiddlewareUser" />
+        <div v-if="step === 4" v-html="someMiddlewareDbFetch" />
+      </slide>
+      <slide :steps="3">
+        <h2>Drawbacks</h2>
+        <ul class="left-align">
+          <li v-if="step >= 2">Type signatures are kinda complicated</li>
+          <li v-if="step >= 3">What's this <code>fascia</code> thing?</li>
+        </ul>
       </slide>
     </div>
   </div>
@@ -196,6 +242,12 @@ import requiresLoginClientFixed from './code-snippets/22-c-requires-login-client
 import requiresLoginClientRegister from './code-snippets/22-d-requires-login-client-register.html';
 import requiresLoginClientRegisterUnderlined from './code-snippets/22-e-requires-login-client-register-underlined.html';
 import requiresLoginClientRegisterFixed from './code-snippets/22-f-requires-login-client-register-fixed.html';
+import someMiddleware from './code-snippets/23-a-some-middleware.html';
+import someMiddlewareTyped from './code-snippets/23-b-some-middleware.html';
+import someMiddlewareUser from './code-snippets/23-c-some-middleware-with-user.html';
+import someMiddlewareDbFetch from './code-snippets/23-d-some-middleware-db-fetch.html';
+import respType from './code-snippets/24-resp-type.html';
+import connType from './code-snippets/24-conn-type.html';
 
 import Wishlist from './components/Wishlist';
 
@@ -244,6 +296,12 @@ export default {
       requiresLoginClientRegister,
       requiresLoginClientRegisterUnderlined,
       requiresLoginClientRegisterFixed,
+      someMiddleware,
+      someMiddlewareTyped,
+      someMiddlewareUser,
+      someMiddlewareDbFetch,
+      respType,
+      connType,
     };
   },
   methods: {
