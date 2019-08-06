@@ -194,14 +194,42 @@
       <slide>
         <h1 class="title-only">The Payoff</h1>
       </slide>
-      <slide>
-        <div class="title-only" v-html="payoff" />
+      <slide :steps="10">
+        <div class="title-only">
+          <div :class="{ highlight: true, 'muted-comment': step > 1 }">
+<pre><span></span><span v-if="step > 2"><span class="nx">app</span><span class="p">.</span><span class="nx">patch</span><span class="p">(</span></span>
+  <span class="c1">// to update a talk, send a PATCH request</span>
+  <span class="s1">&#39;/talks/:id&#39;</span><span class="p">,</span> <span class="c1">// to this endpoint</span>
+  <span v-if="step > 3"><span class="nx">withConnection</span><span class="p">(</span></span>
+    <span class="c1">// you must be logged in</span>
+    <span v-if="step > 3"><span class="nx">conn</span> <span class="o">=&gt;</span></span> <span v-if="step > 4"><span class="nx">requiresLogin</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span></span>
+      <span class="c1">// Look to the :id in the url params for which talk</span>
+      <span v-if="step > 5"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">itemIdFromUrl</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span></span>
+      <span class="c1">// you must own the talk in question</span>
+      <span v-if="step > 6"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">mustOwnTalk</span><span class="p">)</span></span>
+      <span class="c1">// request body must match this interface</span>
+      <span v-if="step > 7"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">decodeBody</span><span class="p">(</span><span class="nx">CreateUpdateTalkV</span><span class="p">))</span></span>
+      <span class="c1">// update the database</span>
+      <span v-if="step > 8"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">talkCrud</span><span class="p">.</span><span class="nx">update</span><span class="p">)</span></span>
+      <span class="c1">// respond with json</span>
+      <span v-if="step > 9"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">jsonFrom</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">)),</span></span>
+  <span v-if="step > 2"><span class="p">),</span></span>
+<span v-if="step > 2"><span class="p">);</span></span>
+</pre></div>
+        </div>
       </slide>
       <slide :steps="3">
         <h2>Drawbacks</h2>
-        <ul class="left-align">
+        <ul class="left-align center-list">
           <li v-if="step >= 2">Type signatures are kinda complicated</li>
           <li v-if="step >= 3">What's this <code>fascia</code> thing?</li>
+        </ul>
+      </slide>
+      <slide>
+        <h2>Future Work</h2>
+        <ul class="left-align center-list">
+          <li>Better docs</li>
+          <li>Solidify API</li>
         </ul>
       </slide>
     </div>
@@ -485,5 +513,9 @@ p {
   position: absolute;
   bottom:-1px;
   left: -2px;
+}
+
+.highlight.muted-comment .c1 {
+  color: grey;
 }
 </style>
