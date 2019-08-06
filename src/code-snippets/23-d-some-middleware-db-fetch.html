@@ -2,9 +2,7 @@
 
 <span class="kr">interface</span> <span class="nx">WithItemId</span> <span class="p">{</span> <span class="nx">item_id</span>: <span class="kt">string</span><span class="p">;</span> <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">someMiddleware</span><span class="o">&lt;</span><span class="nx">C</span><span class="p">,</span> <span class="nx">R</span><span class="o">&gt;</span><span class="p">(</span>
-  <span class="nx">conn</span>: <span class="kt">C</span> <span class="o">&amp;</span> <span class="nx">WithItemId</span>
-<span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">C</span> <span class="o">&amp;</span> <span class="nx">HasRow</span><span class="o">&lt;</span><span class="nx">R</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">someMiddleware</span><span class="o">&lt;</span><span class="nx">C</span><span class="p">,</span> <span class="nx">R</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">c</span>: <span class="kt">C</span> <span class="o">&amp;</span> <span class="nx">WithItemId</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">C</span> <span class="o">&amp;</span> <span class="nx">HasRow</span><span class="o">&lt;</span><span class="nx">R</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
   <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>

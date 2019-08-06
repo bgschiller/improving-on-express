@@ -1,0 +1,20 @@
+<div class="highlight"><pre><span></span><span class="nx">app</span><span class="p">.</span><span class="nx">patch</span><span class="p">(</span>
+  <span class="c1">// to update a talk, send a PATCH request</span>
+  <span class="s1">&#39;/talks/:id&#39;</span><span class="p">,</span> <span class="c1">// to this endpoint</span>
+  <span class="nx">withConnection</span><span class="p">(</span>
+    <span class="nx">conn</span> <span class="o">=&gt;</span>
+      <span class="c1">// you must be logged in</span>
+      <span class="nx">requiresLogin</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+        <span class="c1">// Look to the :id in the url params for which talk</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">itemIdFromUrl</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span>
+        <span class="c1">// you must own the talk in question</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">mustOwnTalk</span><span class="p">)</span>
+        <span class="c1">// request body must match this interface</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">decodeBody</span><span class="p">(</span><span class="nx">CreateUpdateTalkV</span><span class="p">))</span>
+        <span class="c1">// update the database</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">talkCrud</span><span class="p">.</span><span class="nx">update</span><span class="p">)</span>
+        <span class="c1">// respond with json</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">jsonFrom</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">)),</span>
+  <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>

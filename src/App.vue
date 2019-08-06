@@ -53,12 +53,12 @@
         <h3>How is <code>req.user</code> typed?</h3>
         <div v-if="step >= 2" v-html="passportDeclaration" />
         <p v-if="step >= 3">
-          Through the magic of"Declaration merging"
+          Through the magic of declaration merging
           the <code>.user</code> prop  is added to
           every express <code>Request</code>
         </p>
         <p v-if="step >= 4"><strong>
-          EVEN THE ONES NOT USING PASSPORT MIDDLEWARE!
+          even the ones not using passport middleware!
         </strong></p>
       </slide>
       <slide>
@@ -75,7 +75,7 @@
         <div v-if="step >= 4"
           class="img-contain"
           style="
-            background-image: url(/improving-on-express/images/thats-impossible.jpg);
+            background-image: url(/improving-on-express/images/against-the-rules.jpg);
             margin-top: -100vh;
             position: fixed;
           "
@@ -93,12 +93,7 @@
         <Wishlist :step="5" />
       </slide>
       <slide :steps="4">
-        <h2>Plan of Attack</h2>
-        <ul class="unbulleted left-align center-list">
-          <li v-if="step >= 2">Replace method calls on <code>res</code> with return values</li>
-          <li v-if="step >= 3">Change callbacks to Promises</li>
-          <li v-if="step >= 4">Catch errors and translate them into responses</li>
-        </ul>
+        <PlanOfAttack :step="step" />
       </slide>
       <slide>
         <h2 class="title-only">Let's get to work</h2>
@@ -151,7 +146,7 @@
         <div v-if="step === 1" v-html="requiresLoginMiddlewareJ" />
         <h3 v-if="step === 2">Remember, types are optional</h3>
         <div v-if="step === 2" v-html="requiresLoginMiddlewareH" />
-        <h3 v-if="step >= 3">But look what they bought us</h3>
+        <h3 v-if="step >= 3">But look what they buy us</h3>
         <div v-if="step === 3" v-html="requiresLoginClient" />
         <div v-if="step === 4" v-html="requiresLoginClientUnderlined" />
         <p v-if="step === 4">
@@ -168,18 +163,21 @@
         </p>
         <div v-if="step === 8" v-html="requiresLoginClientRegisterFixed" />
       </slide>
+      <slide>
+        <PlanOfAttack :step="4" just-errors/>
+      </slide>
       <slide :steps="5">
         <h3>Errors → Responses</h3>
 <div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ControllerError</span> <span class="kr">extends</span> <span class="nb">Error</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
 <span class="kr">export</span> <span class="kd">function</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">err</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">Resp</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="k">instanceof</span> <span class="nx">ControllerError</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">.</span><span class="nx">toResponse</span><span class="p">();</span>
-  <span class="c1">// all other errors</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;an error occurred&#39;</span><span class="p">,</span>
-    <span class="nx">status_code</span>: <span class="kt">500</span><span class="p">,</span>
-    <span class="nx">headers</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="p">};</span>
+  <span v-if="step >= 2"><span class="c1">// all other errors</span></span>
+  <span v-if="step >= 2"><span class="k">return</span> <span class="p">{</span></span>
+  <span v-if="step >= 2">  <span class="nx">body</span><span class="o">:</span> <span class="s1">&#39;an error occurred&#39;</span><span class="p">,</span></span>
+  <span v-if="step >= 2">  <span class="nx">status_code</span>: <span class="kt">500</span><span class="p">,</span></span>
+  <span v-if="step >= 2">  <span class="nx">headers</span><span class="o">:</span> <span class="p">{},</span></span>
+  <span v-if="step >= 2"><span class="p">};</span></span>
 <span class="p">}</span>
 
 <span v-visible="step >= 3"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">NotAuthorized</span> <span class="kr">extends</span> <span class="nx">ControllerError</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span></span>
@@ -192,6 +190,12 @@
         <div v-if="step === 2" v-html="someMiddlewareTyped" />
         <div v-if="step === 3" v-html="someMiddlewareUser" />
         <div v-if="step === 4" v-html="someMiddlewareDbFetch" />
+      </slide>
+      <slide>
+        <h1 class="title-only">The Payoff</h1>
+      </slide>
+      <slide>
+        <div class="title-only" v-html="payoff" />
       </slide>
       <slide :steps="3">
         <h2>Drawbacks</h2>
@@ -248,16 +252,15 @@ import someMiddlewareUser from './code-snippets/23-c-some-middleware-with-user.h
 import someMiddlewareDbFetch from './code-snippets/23-d-some-middleware-db-fetch.html';
 import respType from './code-snippets/24-resp-type.html';
 import connType from './code-snippets/24-conn-type.html';
+import payoff from './code-snippets/26-payoff.html';
 
 import Wishlist from './components/Wishlist';
-
+import PlanOfAttack from './components/PlanOfAttack';
 
 export default {
   name: 'app',
   mixins: [eagle.slideshow],
-  components: {
-    Wishlist,
-  },
+  components: { Wishlist, PlanOfAttack },
   data() {
     return {
       uncaughtError,
@@ -302,6 +305,7 @@ export default {
       someMiddlewareDbFetch,
       respType,
       connType,
+      payoff,
     };
   },
   methods: {
