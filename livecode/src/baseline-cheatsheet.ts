@@ -16,7 +16,7 @@ import {
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieParser(process.env.SECRET_KEY));
+app.use(cookieParser());
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -33,10 +33,7 @@ app.post("/login", async (req, res) => {
       .json({ error: "incorrect username and password" });
     return;
   }
-  res.cookie("userId", user.id, {
-    signed: true,
-    httpOnly: true
-  });
+  res.cookie("userId", user.id);
   res.json(user);
 });
 
@@ -45,15 +42,17 @@ async function requiresLogin(
   res: Response,
   next: NextFunction
 ) {
-  const userId = req.signedCookies.userId;
+  const userId = req.cookies.userId;
   // note: we will not try storing this on the `req`
   // object until it's time to write the /talks endpoint
   const user = userId && (await findUserById(userId));
   if (!user) {
     res
-      .status(403)
+      .status(401)
       .json({ error: "must be logged in to take that action" });
+    return; // forget about this return
   }
+  req.user = user; // forget this too
   next();
 }
 
@@ -70,8 +69,11 @@ app.post("/talks", requiresLogin, async (req, res) => {
   const { title, description } = req.body;
   if (!title || !description) {
     res
-      .json({ error: "must include both title and description" })
-      .status(422);
+      .status(422) // wrong order again
+      .json({
+        error: "must include both title and description"
+      });
+    return; // forget this too
   }
   const user_id = req.user!.id; // 😡
   const talk = await createTalk({

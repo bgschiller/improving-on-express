@@ -1,3 +1,4 @@
+import * as shared from "../src/shared";
 import app from "../src/baseline-cheatsheet";
 import request from "supertest";
 
@@ -25,6 +26,51 @@ describe("/login", () => {
       .post("/login")
       .send({ username: "heidela", password: "dogs4ever" })
       .expect(200)
-      .expect("Set-Cookie", /userId/);
+      .expect("set-cookie", /userId/);
+  });
+});
+
+describe("POST /talks", () => {
+  let createTalk: jest.SpyInstance<
+    Promise<shared.Talk>,
+    [shared.CreateTalkParams]
+  >;
+  beforeAll(() => {
+    createTalk = jest.spyOn(shared, "createTalk");
+  });
+  beforeEach(() => {
+    createTalk.mockClear();
+  });
+  it("rejects unauthenticated requests", async () => {
+    await request(app)
+      .post("/talks")
+      .send({
+        title: "Why web-components will rule the world",
+        description: "in this essay I will..."
+      })
+      .expect(401);
+  });
+  it("requires a payload with title, description", async () => {
+    await request(app)
+      .post("/talks")
+      .set("Cookie", ["userId=12"])
+      .send({ title: "Cher" })
+      .expect(422);
+  });
+  it("sets 'user_id' to the id of the logged-in user", async () => {
+    const payload = {
+      title: "React Hooks",
+      description: "reall should have been called react claws"
+    };
+    await request(app)
+      .post("/talks")
+      .set("Cookie", ["userId=12"])
+      .send(payload)
+      .expect(200);
+
+    expect(createTalk).toHaveBeenCalledWith({
+      ...payload,
+      user_id: 12
+    });
   });
 });

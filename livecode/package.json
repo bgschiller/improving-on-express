@@ -23,7 +23,7 @@
     "typescript-tslint-plugin": "^0.5.4"
   },
   "scripts": {
-    "test": "SECRET_KEY=moosefeathers jest"
+    "test": "jest"
   },
   "author": "Brian Schiller",
   "license": "MIT"
