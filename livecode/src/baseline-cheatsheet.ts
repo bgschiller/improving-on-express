@@ -84,15 +84,18 @@ app.post("/talks", requiresLogin, async (req, res) => {
   res.json(talk);
 });
 
-app.delete(
-  "/talks",
-  /* forgot requiresLogin */ async (req, res) => {
-    if (!req.user!.isAdmin) {
-      res.status(403);
-    }
-    destroyAllTalks();
-    res.status(200);
+app.delete("/talks", requiresLogin, async (req, res) => {
+  console.log(
+    "top of destroy talks, user is",
+    JSON.stringify(req.user)
+  );
+  if (!req.user!.isAdmin) {
+    res.sendStatus(403); // status
+    return; // forget to return
   }
-);
+  destroyAllTalks();
+  res.sendStatus(200);
+  // totally forgot to send the status
+});
 
 export default app;

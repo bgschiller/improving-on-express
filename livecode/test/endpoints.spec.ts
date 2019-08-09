@@ -74,3 +74,37 @@ describe("POST /talks", () => {
     });
   });
 });
+
+describe("DELETE /talks", () => {
+  let destroyAllTalks: jest.SpyInstance<Promise<void>, []>;
+
+  beforeAll(() => {
+    destroyAllTalks = jest.spyOn(shared, "destroyAllTalks");
+  });
+  beforeEach(() => {
+    destroyAllTalks.mockClear();
+  });
+
+  it("rejects unauthorized users", async () => {
+    await request(app)
+      .delete("/talks")
+      .send()
+      .expect(401);
+  });
+  it("rejects non-admin users", async () => {
+    await request(app)
+      .delete("/talks")
+      .set("Cookie", ["userId=14"])
+      .send()
+      .expect(403);
+    expect(destroyAllTalks).not.toBeCalled();
+  });
+  it("calls destroyAllTalks for admins", async () => {
+    await request(app)
+      .delete("/talks")
+      .set("Cookie", ["userId=12"])
+      .send()
+      .expect(200);
+    expect(destroyAllTalks).toHaveBeenCalled();
+  });
+});
