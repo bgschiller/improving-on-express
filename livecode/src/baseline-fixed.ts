@@ -53,13 +53,13 @@ async function requiresLogin(
 }
 
 // add this later, after ts complains.
-declare global {
-  namespace Express {
-    interface Request {
-      user?: User; // 😡
-    }
-  }
-}
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user?: User; // 😡
+//     }
+//   }
+// }
 
 app.post('/talks', requiresLogin, async (req, res) => {
   const { title, description } = req.body;

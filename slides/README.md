@@ -190,7 +190,7 @@ app.patch(
 
 - Code is sometimes a bit longer
 - Relies on a pretty strong knowledge of TypeScript
-- "What's this `fascia` thing?
+- "What's this `fascia` thing?"
 
 ---
 
