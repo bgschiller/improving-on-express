@@ -12,7 +12,6 @@ import {
 import {
   verifyLogin,
   findUserById,
-  destroyAllTalks,
   createTalk,
   User,
 } from './shared';
@@ -26,7 +25,5 @@ app.use(cookieParser());
 app.post('/login', (req, res) => {});
 
 app.post('/talks', (req, res) => {});
-
-app.delete('/talks', (req, res) => {});
 
 export default app;

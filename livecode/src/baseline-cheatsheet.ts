@@ -8,7 +8,6 @@ import cookieParser = require("cookie-parser");
 import {
   verifyLogin,
   findUserById,
-  destroyAllTalks,
   User,
   createTalk
 } from "./shared";
@@ -51,6 +50,15 @@ async function requiresLogin(
   next();
 }
 
+// add this later, after ts complains.
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user?: User; // 😡
+//     }
+//   }
+// }
+
 app.post("/talks", requiresLogin, async (req, res) => {
   const { title, description } = req.body;
   if (!title || !description) {
@@ -66,14 +74,6 @@ app.post("/talks", requiresLogin, async (req, res) => {
     description
   });
   res.json(talk);
-});
-
-app.delete("/talks", async (req, res) => {
-  if (!req.user!.isAdmin) {
-    res.status(403);
-  }
-  destroyAllTalks();
-  res.status(200);
 });
 
 export default app;

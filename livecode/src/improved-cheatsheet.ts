@@ -7,12 +7,10 @@ import {
   decodeBody,
   NotAuthorized,
   json,
-  Forbidden,
 } from 'fascia';
 import {
   verifyLogin,
   findUserById,
-  destroyAllTalks,
   createTalk,
   User,
 } from './shared';
@@ -83,19 +81,6 @@ app.post(
         });
         return json(talk);
       }),
-  ),
-);
-
-app.delete(
-  '/talks',
-  withConnection(conn =>
-    requiresLogin(conn).then(async conn => {
-      if (!conn.user.isAdmin) {
-        throw new Forbidden('you must be an admin');
-      }
-      await destroyAllTalks();
-      return json({ status: 'ok' });
-    }),
   ),
 );
 
