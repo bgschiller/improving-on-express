@@ -17,7 +17,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
-    "@vue/cli-service": "^3.0.1",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-airbnb": "^3.0.4",
     "html-loader": "^0.5.5",
     "node-sass": "^4.9.0",
